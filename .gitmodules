@@ -1,0 +1,12 @@
+[submodule "meta-raspberrypi"]
+	path = meta-raspberrypi
+	url = git@github.com:gpioblink/meta-raspberrypi.git
+	branch = my-raspberrypi0-wifi-scarthgap
+[submodule "meta-openembedded"]
+	path = meta-openembedded
+	url = git@github.com:gpioblink/meta-openembedded.git
+	branch = my-raspberrypi0-wifi-scarthgap
+[submodule "poky"]
+	path = poky
+	url = git@github.com:gpioblink/poky.git
+	branch = my-raspberrypi0-wifi-scarthgap
