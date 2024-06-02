@@ -1,17 +1,24 @@
 # raspi-docker
 
+## installation
+
+```
+git clone --recursive git@github.com:gpioblink/raspi-docker.git
+```
+
+or
+
+```
+git clone git@github.com:gpioblink/raspi-docker.git
+git submodule update --init --recursive
+```
+
 ## build
 
 ```
 ./docker-build.sh Dockerfile
 ./docker-run.sh
-$ cd nano-5.11
-$ . ./buildroot-setup.sh
+$ cd my-raspberrypi0-wifi-6.6
+$ . ./yocto-setup.sh
 ```
 
-## clone layers (tmp)
-
-```
-git clone git://git.yoctoproject.org/poky -b scarthgap-5.0.1
-git clone git://git.yoctoproject.org/meta-raspberrypi -b scarthgap
-git clone git://git.openembedded.org/meta-openembedded -b scarthgap
