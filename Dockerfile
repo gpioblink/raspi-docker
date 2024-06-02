@@ -24,10 +24,6 @@ ENV LC_ALL en_US.UTF-8
 # the 'sh' alias to 'bash' instead of 'dash'.
 RUN rm /bin/sh && ln -s bash /bin/sh
 
-# Install repo
-ADD https://storage.googleapis.com/git-repo-downloads/repo /usr/local/bin/
-RUN chmod 755 /usr/local/bin/repo
-
 # Add your user to sudoers to be able to install other packages in the container.
 ARG USER
 RUN echo "${USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER} && \
