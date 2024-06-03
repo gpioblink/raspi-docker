@@ -11,3 +11,4 @@ MACHINE="raspberrypi0-wifi"
 #DISTRO="poky"
 IMAGES="core-image-minimal"
 
+PATH="${DOCKER_WORKDIR}/poky/bitbake/bin:$PATH"

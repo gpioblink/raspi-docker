@@ -7,10 +7,10 @@
 
 # Move to work repository
 
-cd ${YOCTO_DIR}
+cd ${DOCKER_WORKDIR}
 
 # Init
-
+cd poky
 source oe-init-build-env build
 
 # Build
