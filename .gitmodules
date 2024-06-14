@@ -10,3 +10,6 @@
 	path = out/meta-raspberrypi
 	url = git@github.com:gpioblink/meta-raspberrypi.git
 	branch = my-raspberrypi0-wifi-scarthgap
+[submodule "out/meta-gpioblink"]
+	path = out/meta-gpioblink
+	url = git@github.com:gpioblink/meta-gpioblink.git
