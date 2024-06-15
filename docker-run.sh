@@ -8,7 +8,14 @@ if [ ! -d ${OUTPUT_DIR} ]; then
 	mkdir -p ${OUTPUT_DIR}
 fi
 
-docker run -it --rm -u `id -u`:`id -g` \
+
+if [ -t 0 ] && [ -t 1 ] ; then
+	IT="-it"
+else
+	IT=""
+fi
+
+docker run $IT --rm -u `id -u`:`id -g` \
     --net=host --env="DISPLAY" --volume /tmp/.X11-unix:/tmp/.X11-unix \
     --volume ${HOME}:${HOME} \
     --volume $(pwd)/out:${DOCKER_WORKDIR} \
