@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build the Docker image
+      run: ./docker-build.sh Dockerfile
+
+    - name: Run the Docker image
+      run: ./docker-run.sh ./my-raspberrypi0-wifi-6.6/yocto-build.sh
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: out/poky/build/tmp/deploy/images/raspberrypi0-wifi
