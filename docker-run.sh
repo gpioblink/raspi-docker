@@ -14,5 +14,5 @@ docker run -it --rm -u `id -u`:`id -g` \
     --volume $(pwd)/out:${DOCKER_WORKDIR} \
     --volume $(pwd)/${DISTRO}:${DOCKER_WORKDIR}/${DISTRO} \
     "${DOCKER_IMAGE_TAG}:latest" \
-    $1
+    $*
 

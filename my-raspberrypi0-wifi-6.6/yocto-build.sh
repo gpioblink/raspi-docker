@@ -1,19 +1,11 @@
 #!/bin/bash
 # This script will run into container
 
-# source the common variables
+cd `dirname $0`
 
-. ./env.sh
-
-# Move to work repository
-
-cd ${DOCKER_WORKDIR}
-
-# Init
-cd poky
-source oe-init-build-env build
+. ./yocto-setup.sh
 
 # Build
 
-#bitbake ${IMAGES}
+bitbake ${IMAGES}
 
