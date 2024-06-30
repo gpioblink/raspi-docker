@@ -36,3 +36,4 @@ if [ $# -eq 0 ]
         git add .
         git commit -m "[bulk-commit] ${COMMIT_MSG}"
 fi
+
