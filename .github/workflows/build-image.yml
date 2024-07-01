@@ -23,9 +23,18 @@ jobs:
         remove-android: 'true'
         remove-haskell: 'true'
         remove-codeql: 'true'
+
     - uses: actions/checkout@v4
       with:
-        submodules: recursive   
+        submodules: recursive
+
+     - name: Define Tag
+       run: |
+         echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
+         git tag $(cat TAG_NAME)
+         git push origin $(cat TAG_NAME)
+         git switch $(cat TAGNAME)
+ 
     - name: Build the Docker image
       run: ./docker-build.sh Dockerfile
 
@@ -36,3 +45,12 @@ jobs:
       with:
         name: build
         path: out/poky/build/tmp/deploy/images/raspberrypi0-wifi
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bmap
+          out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bz2
+
+
