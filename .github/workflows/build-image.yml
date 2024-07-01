@@ -37,8 +37,9 @@ jobs:
 
     - name: Test Release
       uses: softprops/action-gh-release@v2
-      tag_name: ${{ env.TAG_NAME }}
       with:
+        name: ${{ github.event.head_commit.message }}
+        tag_name: ${{ env.TAG_NAME }}
         files: |
           TAG_NAME
 
