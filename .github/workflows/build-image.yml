@@ -34,6 +34,13 @@ jobs:
         git tag $(cat TAG_NAME)
         git push origin $(cat TAG_NAME)
         git switch $(cat TAG_NAME)
+
+    - name: Test Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          TAG_NAME
+
  
     - name: Build the Docker image
       run: ./docker-build.sh Dockerfile
