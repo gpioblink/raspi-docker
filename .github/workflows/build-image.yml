@@ -28,12 +28,12 @@ jobs:
       with:
         submodules: recursive
 
-     - name: Define Tag
-       run: |
-         echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
-         git tag $(cat TAG_NAME)
-         git push origin $(cat TAG_NAME)
-         git switch $(cat TAGNAME)
+    - name: Define Tag
+      run: |
+        echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
+        git tag $(cat TAG_NAME)
+        git push origin $(cat TAG_NAME)
+        git switch $(cat TAGNAME)
  
     - name: Build the Docker image
       run: ./docker-build.sh Dockerfile
