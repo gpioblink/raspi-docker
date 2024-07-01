@@ -33,9 +33,11 @@ jobs:
         echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
         git tag $(cat TAG_NAME)
         git push origin $(cat TAG_NAME)
+        echo "TAG_NAME=$(cat TAG_NAME)" >> $GITHUB_ENV
 
     - name: Test Release
       uses: softprops/action-gh-release@v2
+      tag_name: ${{ env.TAG_NAME }}
       with:
         files: |
           TAG_NAME
