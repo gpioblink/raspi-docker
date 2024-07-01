@@ -33,7 +33,7 @@ jobs:
         echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
         git tag $(cat TAG_NAME)
         git push origin $(cat TAG_NAME)
-        git switch $(cat TAGNAME)
+        git switch $(cat TAG_NAME)
  
     - name: Build the Docker image
       run: ./docker-build.sh Dockerfile
