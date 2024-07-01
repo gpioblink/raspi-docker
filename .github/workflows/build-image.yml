@@ -28,22 +28,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Define Tag
-      run: |
-        echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
-        git tag $(cat TAG_NAME)
-        git push origin $(cat TAG_NAME)
-        echo "TAG_NAME=$(cat TAG_NAME)" >> $GITHUB_ENV
-
-    - name: Test Release
-      uses: softprops/action-gh-release@v2
-      with:
-        name: ${{ github.event.head_commit.message }}
-        tag_name: ${{ env.TAG_NAME }}
-        files: |
-          TAG_NAME
-
- 
     - name: Build the Docker image
       run: ./docker-build.sh Dockerfile
 
@@ -55,9 +39,18 @@ jobs:
         name: build
         path: out/poky/build/tmp/deploy/images/raspberrypi0-wifi
 
+    - name: Define a Tag
+      run: |
+        echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
+        git tag $(cat TAG_NAME)
+        git push origin $(cat TAG_NAME)
+        echo "TAG_NAME=$(cat TAG_NAME)" >> $GITHUB_ENV
+
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
+        name: ${{ github.event.head_commit.message }}
+        tag_name: ${{ env.TAG_NAME }}
         files: |
           out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bmap
           out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bz2
