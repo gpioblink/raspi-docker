@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI for pi4
 
 on:
   push:
@@ -37,11 +37,11 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: build
-        path: out/poky/build/tmp/deploy/images/raspberrypi0-wifi
+        path: out/poky/build/tmp/deploy/images/raspberrypi4-64
 
     - name: Define a Tag
       run: |
-        echo "exp-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
+        echo "exp-pi4-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
         git tag $(cat TAG_NAME)
         git push origin $(cat TAG_NAME)
         echo "TAG_NAME=$(cat TAG_NAME)" >> $GITHUB_ENV
@@ -52,7 +52,6 @@ jobs:
         name: ${{ github.event.head_commit.message }}
         tag_name: ${{ env.TAG_NAME }}
         files: |
-          out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bmap
-          out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bz2
-
+          out/poky/build/tmp/deploy/images/raspberrypi4-64/core-image-minimal-raspberrypi4-64.rootfs.wic.bmap
+          out/poky/build/tmp/deploy/images/raspberrypi4-64/core-image-minimal-raspberrypi4-64.rootfs.wic.bz2
 
