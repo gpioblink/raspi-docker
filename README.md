@@ -18,6 +18,7 @@ GitHubにログインしない場合は、以下の方法をお試しくださ�
 
 ```
 git clone https://github.com/gpioblink/raspi-docker.git
+cd raspi-docker
 git config --add submodule.out/poky.url https://github.com/gpioblink/poky.git
 git config --add submodule.out/meta-openembedded.url https://github.com/gpioblink/meta-openembedded.git
 git config --add submodule.out/meta-raspberrypi.url https://github.com/gpioblink/meta-raspberrypi.git
