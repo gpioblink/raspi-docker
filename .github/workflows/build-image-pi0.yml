@@ -1,0 +1,57 @@
+name: Docker Image CI for pi0w
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 2048
+        swap-size-mb: 4092
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Build the Docker image
+      run: ./docker-build.sh Dockerfile
+
+    - name: Run the Docker image
+      run: ./docker-run.sh ./my-raspberrypi0-wifi-6.6/yocto-build.sh
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: out/poky/build/tmp/deploy/images/raspberrypi0-wifi
+
+    - name: Define a Tag
+      run: |
+        echo "exp-pi0w-$(TZ=Asia/Tokyo date +%Y%m%d-%H%M%S)" > TAG_NAME
+        git tag $(cat TAG_NAME)
+        git push origin $(cat TAG_NAME)
+        echo "TAG_NAME=$(cat TAG_NAME)" >> $GITHUB_ENV
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: ${{ github.event.head_commit.message }}
+        tag_name: ${{ env.TAG_NAME }}
+        files: |
+          out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bmap
+          out/poky/build/tmp/deploy/images/raspberrypi0-wifi/core-image-minimal-raspberrypi0-wifi.rootfs.wic.bz2
+
